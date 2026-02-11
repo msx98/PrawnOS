@@ -1,0 +1,8 @@
+# TODO take target from make variables
+qemu-system-arm \
+  -M virt -cpu cortex-a15 -m 2G \
+  -kernel ./build/armhf/linux-6.6.60-blobby-armhf/arch/arm/boot/zImage \
+  -drive if=none,file=./PrawnOS-Shiba-armhf-blobby.img,format=raw,id=hd0 \
+  -device virtio-blk-device,drive=hd0 \
+  -append "console=ttyAMA0 earlycon=pl011,0x09000000 loglevel=8 root=PARTLABEL=Root rootfstype=ext4 rootwait rw rdinit=/sbin/init" \
+  -nographic
