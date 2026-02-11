@@ -101,7 +101,7 @@ echo BLKID: ${BLKID}
 
 # If it's an mmcblk device, the kernel partiton will be p1. If it is a usb device, the partiton will just be 1.
 # Just want everything before the 1
-ROOT_DEV="${BLKID%1:*}"
+ROOT_DEV="${BLKID%%[0-9]:*}"
 echo ROOT_DEV: ${ROOT_DEV}
 
 # label any partition on the system with RESCUESHELL to enter the initramfs rescue shell before mount and root_switch.
