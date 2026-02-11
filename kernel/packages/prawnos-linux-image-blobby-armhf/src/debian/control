@@ -1,0 +1,13 @@
+Source: prawnos-linux-image-blobby-armhf
+Section: kernel
+Priority: optional
+Maintainer: Eva Emmerich <eva@evaemmerich.com>
+Build-Depends: debhelper (>= 10)
+Standards-Version: 4.5.0
+
+
+Package: prawnos-linux-image-blobby-armhf
+Architecture: armhf
+Depends: ${misc:Depends} coreutils
+Conflicts: prawnos-linux-image-libre-armhf, prawnos-linux-image-hybrid-armhf
+Description: the PrawnOS linux kernel distribution. Made up of normal aka blobby linux, PrawnOS initramfs, and varying numbers of patches

@@ -82,7 +82,7 @@ export $(KERNEL_TYPE)
 
 ## ARMHF KERNEL VERSIONS
 ifeq ($(TARGET),$(PRAWNOS_ARMHF))
-KVER := 5.15.6
+KVER := 6.6.60
 PRAWNOS_KERNEL_VER := 1
 PRAWNOS_KERNEL_IMAGE_DEBVER := 1
 PRAWNOS_KERNEL_HEADERS_DEBVER := 1
@@ -291,7 +291,7 @@ PRAWNOS_ATH9K_BUILD := $(PRAWNOS_BUILD_SHARED)/open-ath9k-htc-firmware
 
 ### WGET
 #keeping the server timestamps confuses make, causing needless rebuilds
-WGET_OPTS := --no-use-server-timestamps
+WGET_OPTS := --no-use-server-timestamps --inet4-only
 
 #=========================================================================================
 

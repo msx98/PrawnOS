@@ -1,41 +1,32 @@
-From 30914ed56a766f15162c3bf106797a45857d98f1 Mon Sep 17 00:00:00 2001
-From: SolidHal <hal@halemmerich.com>
-Date: Sun, 21 Oct 2018 16:40:15 -0500
-Subject: [PATCH] Added a second reset when having an issue reading the emmc.
+From d6f75254e35d22fadf7b79567958942cb1fe0aed Mon Sep 17 00:00:00 2001
+From: msx98 <git@lx.ax>
+Date: Wed, 11 Feb 2026 14:08:19 +0000
+Subject: [PATCH 1/1] revive emmc patch
 
-The c201 emmc can be... touchy. Sometimes one full reset isn't
-enough to get it into a wokring state if it found it's way into
-a really bad state. Note that in my testing WITHOUT this patch,
-this only happens about once in just over 1600 reboots.
-
-Signed-off-by: SolidHal <hal@halemmerich.com>
 ---
- drivers/mmc/core/block.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/mmc/core/block.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/mmc/core/block.c b/drivers/mmc/core/block.c
-index 5bc585e8..39e16e48 100644
+index 3564a0f63..9ef5de93f 100644
 --- a/drivers/mmc/core/block.c
 +++ b/drivers/mmc/core/block.c
-@@ -1033,6 +1033,7 @@ static int mmc_blk_reset(struct mmc_blk_data *md, struct mmc_host *host,
- 		return -EEXIST;
-   }
- 	md->reset_done |= type;
-+retry:
- 	err = mmc_hw_reset(host);
- 	/* Ensure we switch back to the correct partition */
- 	if (err != -EOPNOTSUPP) {
-@@ -1050,6 +1051,10 @@ static int mmc_blk_reset(struct mmc_blk_data *md, struct mmc_host *host,
- 			return -ENODEV;
- 		}
- 	}
-+  if (err){
-+    /* Try one last time, just in case. The emmc can be touchy */
-+    goto retry;
-+  }
- 	return err;
- }
+@@ -1028,13 +1028,14 @@ static unsigned int mmc_blk_data_timeout_ms(struct mmc_host *host,
+ static int mmc_blk_reset(struct mmc_blk_data *md, struct mmc_host *host,
+ 			 int type)
+ {
+-	int err;
++	int err, i;
+ 	struct mmc_blk_data *main_md = dev_get_drvdata(&host->card->dev);
  
+ 	if (md->reset_done & type)
+ 		return -EEXIST;
+ 
+ 	md->reset_done |= type;
++	for (i=0, err=1; (err!=0) && (i<2); i++)
+ 	err = mmc_hw_reset(host->card);
+ 	/*
+ 	 * A successful reset will leave the card in the main partition, but
 -- 
-2.11.0
+2.47.3
 

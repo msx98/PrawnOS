@@ -19,7 +19,7 @@
 		};
 		fdt@1 {
 			description = "dtb";
-			data = /incbin/("arch/arm/boot/dts/rk3288-veyron-speedy.dtb");
+			data = /incbin/("arch/arm/boot/dts/rockchip/rk3288-veyron-speedy.dtb");
 			type = "flat_dt";
 			arch = "arm";
 			compression = "none";
@@ -29,7 +29,7 @@
 		};
 		fdt@2 {
 			description = "dtb";
-			data = /incbin/("arch/arm/boot/dts/rk3288-veyron-minnie.dtb");
+			data = /incbin/("arch/arm/boot/dts/rockchip/rk3288-veyron-minnie.dtb");
 			type = "flat_dt";
 			arch = "arm";
 			compression = "none";
@@ -39,7 +39,7 @@
 		};
 		fdt@3 {
                         description = "dtb";
-                        data = /incbin/("arch/arm/boot/dts/rk3288-veyron-mickey.dtb");
+                        data = /incbin/("arch/arm/boot/dts/rockchip/rk3288-veyron-mickey.dtb");
                         type = "flat_dt";
                         arch = "arm";
                         compression = "none";
