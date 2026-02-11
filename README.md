@@ -54,7 +54,7 @@ If you don't want to or can't build the image, you can find downloads under <rel
 
 ## Dependencies
 
-Building PrawnOS has been tested on Debian 11 Buster
+Building PrawnOS has been tested on Debian 12 Bookworm
 
 Debian Bullseye is the only build environment that is supported.
 These packages are required:
