@@ -100,7 +100,15 @@ if [ "$BOOTLOADER" == "coreboot" ]; then
     #copy in the resources, initramfs
     cp $INITRAMFS .
     cp $RESOURCES/kernel.its .
+    scripts/config --file .config \
+  -e VIRTIO \
+  -e VIRTIO_MMIO \
+  -e VIRTIO_BLK \
+  -e DEVTMPFS \
+  -e DEVTMPFS_MOUNT \
+  -e EXT4_FS
 
+    make ARCH=$KERNEL_ARCH CROSS_COMPILE=$CROSS_COMPILER olddefconfig
     make -j $(($(nproc) +1))  CROSS_COMPILE=$CROSS_COMPILER ARCH=$KERNEL_ARCH $IMAGE
     make -j $(($(nproc) +1))  CROSS_COMPILE=$CROSS_COMPILER ARCH=$KERNEL_ARCH DTC_FLAGS="-@" dtbs
     mkimage -D "-I dts -O dtb -p 2048" -f kernel.its vmlinux.uimg
